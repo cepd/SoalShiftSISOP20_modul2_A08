@@ -115,3 +115,97 @@ memperoleh tugas yang banyak dan berbeda tetapi harus dikerjakan secara bersamaa
 
 **jawaban**
 
+Membuat Folder Indomie
+```c
+child = fork();
+  if (child == 0) {
+    printf("creating folder indomie\n\n");
+    char *argv[] = {"mkdir", "-p", "modul2/indomie", NULL};
+    execv("/bin/mkdir", argv);
+  }
+```
+
+Membuat Folder  Sedaap
+```c
+child1 = fork(); 
+  if (child1 == 0){
+    sleep(5);
+    printf("creating folder sedaap\n\n");
+    char *argv[] = {"mkdir", "-p", "modul2/sedaap", NULL};
+    execv("/bin/mkdir", argv);
+  }
+```
+*sleep(5)* berfungsi untuk menunggu 5 detik sebelum membuat directory sedaap
+
+Men-unzip file
+```c
+child2 = fork();
+
+  if (child2 == 0) {
+    printf("unzip jpg\n\n");
+    char *argv[] = {"unzip", "Downloads/jpg.zip", "-d", "modul2/", NULL};
+    execv("/usr/bin/unzip", argv);
+  }
+```
+
+Menunggu child proses selesai
+```c
+waitpid(child, &status, 0);
+waitpid(child1, &status, 0);
+waitpid(child2, &status, 0);
+```
+
+Membuka directory
+```c
+ if ((dir = opendir("modul2/jpg/")) != NULL)
+```
+
+Mengecek jika tikenya directory, maka directory tersebut akan dipindahkan ke directory indomie melalui process child 4 dengan menggunakan *exec mv*
+```c
+  if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0){
+          continue;
+        }
+  else if(ent->d_type == DT_DIR){
+          child4 = fork();
+```
+
+Membuat File coba1.txt
+```c
+          if(child5 == 0){
+            char file_name [] = "a";
+            strcpy(file_name, folder_name2);
+            strcat(file_name, "/coba1.txt");
+            printf("membuat %s\n", file_name);
+            char *argv[] = {"touch", file_name, NULL};
+            execv("/usr/bin/touch", argv);
+          }
+          waitpid(child5, &status, 0);
+          child6 = fork();
+```
+
+Membuat file coba2.txt
+```c
+      if(child6 == 0){
+            sleep(3);
+            char file_name2 [] = "a";
+            strcpy(file_name2, folder_name2);
+            strcat(file_name2, "/coba2.txt");
+            printf("membuat %s\n", file_name2);
+            char *argv[] = {"touch", file_name2, NULL};
+            execv("/usr/bin/touch", argv);
+          } 
+          waitpid(child6, &status, 0); 
+        }
+```
+
+Memindahkan file ke sedaap
+```c
+        else if(ent->d_type == DT_REG){
+          child4 = fork();
+          if(child4 == 0){
+            char *argv[] = {"mv", folder_name, "modul2/sedaap/", NULL};
+            execv("/bin/mv", argv);
+          }
+          printf("file %s has been transfered\n\n", folder_name);
+        }
+```
