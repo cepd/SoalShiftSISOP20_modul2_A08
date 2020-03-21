@@ -1,7 +1,7 @@
 # SoalShiftSISOP20_modul2_A08
 
 ## Kelompok
-- **Dwi Wahyu Santoso**  (05111840000120)
+- **Dwi Wahyu Santoso**  (05111840000121)
 - **I Gusti Agung Chintya Prema Dewi** (05111840000130)
 ### Pembahasan Nomor 1 
 
